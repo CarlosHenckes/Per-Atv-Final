@@ -1,7 +1,13 @@
 package br.com.fiap.helper;
 
-import javax.persistence.EntityManager;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.management.Query;
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+
+import br.com.fiap.entity.Aluno;
 import br.com.fiap.entity.Professor;
 
 public class HelperMatricula {
@@ -20,5 +26,32 @@ public class HelperMatricula {
 			em.getTransaction().rollback();
 			throw e;
 		}
+	}
+	
+	public List<Aluno> listAlunos(){
+		List<Aluno> alunos = new ArrayList<Aluno>();
+		try {
+			em.getTransaction().begin();
+			TypedQuery<Aluno> query = em.createQuery("from Aluno", Aluno.class);
+			alunos = query.getResultList();
+			
+		} catch(Exception e) {
+			throw e;
+		}
+		return alunos;
+	}
+	
+	public List<Aluno> listAlunosPorCurso(String curso){
+		List<Aluno> alunos = new ArrayList<Aluno>();
+		try {
+			em.getTransaction().begin();
+			TypedQuery<Aluno> query = em.createQuery("from Aluno a where a.curso.nome like :course", Aluno.class);
+			em.setProperty("course", ("%" + curso + "%"));
+			alunos = query.getResultList();
+			
+		} catch(Exception e) {
+			throw e;
+		}
+		return alunos;
 	}
 }

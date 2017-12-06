@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -21,9 +22,15 @@ import org.hibernate.engine.FetchStyle;
 public class Professor implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "idprofessor")
 	private int idprofessor;
+	
+	@Column(name = "nome", length = 80)
 	private String nome;
+	
+	@Column(name = "cpf", length = 12)
 	private String cpf;
+	
 	@OneToMany(mappedBy = "professor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Curso> cursos;
 	
