@@ -1,7 +1,10 @@
 package br.com.fiap.teste;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -18,7 +21,8 @@ public class Teste {
 	public static void main(String[] args) throws Exception {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("JPA");
 		EntityManager em = emf.createEntityManager();
-		SimpleDateFormat sdf = new SimpleDateFormat ("yyyy-MM-dd");
+		
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 
 		HelperMatricula dao = new HelperMatricula(em);
 		
@@ -39,12 +43,16 @@ public class Teste {
 		Aluno a1 = new Aluno(); // aluno 1
 		a1.setNome("Matheus");
 		a1.setCurso(e);
-		a1.setDatanascimento(sdf.parse("1998/3/21"));
+		Date date1 = new Date();
+		date1 = df.parse("29/03/1984");
+		a1.setDatanascimento(date1);
 		
 		Aluno a2 = new Aluno(); // aluno 2
 		a2.setNome("Junior");
 		a2.setCurso(e);
-		a2.setDatanascimento(sdf.parse("1999/6/10"));
+		Date date2 = new Date();
+		date2 = df.parse("21/09/1983");
+		a2.setDatanascimento(date2);
 		
 		// adicionar a lista
 		alunos.add(a1);
@@ -55,9 +63,7 @@ public class Teste {
 		
 		professor.setCursos(cursos); // setar cursos de professor
 		dao.salvar(professor);
-		
-		em.close();
-		emf.close();
+
 	}
 
 }

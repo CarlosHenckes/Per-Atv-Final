@@ -7,7 +7,7 @@ import javax.persistence.Persistence;
 import br.com.fiap.entity.Aluno;
 import br.com.fiap.helper.HelperMatricula;
 
-public class ListarAlunosTeste {
+public class ListaAlunosPorCursoTeste {
 
 	public static void main(String[] args) {
 		
@@ -16,8 +16,7 @@ public class ListarAlunosTeste {
 		
 		HelperMatricula dao = new HelperMatricula(em);
 		
-		System.out.println("Alunos Matriculados: ");
-		for (Aluno aluno : dao.listAlunos()) {
+		for (Aluno aluno : dao.listAlunosPorCurso("JPA")) {
 			System.out.println(aluno.toString());
 		}
 
